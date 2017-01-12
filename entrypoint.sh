@@ -91,8 +91,8 @@ netstat -ntlup | grep privoxy
 echo "Starting Shadowsocks-libev..."
 nohup ss-local -c ${SS_CONF} ${SS_UDP_FLAG}${SS_ONETIME_AUTH_FLAG}${SS_FAST_OPEN_FLAG} >${SS_LOG} 2>&1 &
 sleep 0.3
-#echo "ss-local (pid `pidof ss-local`)is running."
-#netstat -ntlup | grep ss-local
+echo "ss-local (pid `pidof ss-local`)is running."
+netstat -ntlup | grep ss-local
 echo "Starting Kcptun for Shadowsocks-libev..."
 $BASE_DIR/$KCPTUN_DIR/client_linux_amd64 -v
 echo "+---------------------------------------------------------+"
