@@ -44,18 +44,9 @@ RUN chmod 755 /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 # build privoxy
-RUN apk update && apk add \
-    privoxy \
-    && rm -rf /var/cache/apk/*
+RUN apk update && apk add privoxy
 # copy in our privoxy config file
 COPY privoxy.conf /etc/privoxy/config
-
-
-# build software stack
-ENV DEP curl tcpdump bash pcre
-RUN set -ex \
-    && apk add --update $DEP \
-    && rm -rf /var/cache/apk/*
 
 # build shadowsocks-libev
 ARG SS_VER=2.5.6
@@ -99,5 +90,5 @@ RUN set -ex \
     && mkdir -p $BASE_DIR/$KCPTUN_DIR \
     && cd $BASE_DIR/$KCPTUN_DIR \
     && curl -sSL $KCPTUN_URL | tar xz \
-    && apk del --purge $SS_DEP \
+    && apk del --purge $KCPTUN_DEP \
     && rm -rf /var/cache/apk/*
